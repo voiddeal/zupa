@@ -1,0 +1,60 @@
+.container {
+  perspective: 1000px;
+}
+
+.face {
+  display: block;
+  position: relative;
+  min-width: var(--front-width);
+  min-height: var(--front-height);
+  transition: width var(--duration) cubic-bezier(0.23, 1, 0.32, 1),
+    height var(--duration) cubic-bezier(0.23, 1, 0.32, 1),
+    transform var(--duration) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+}
+
+.front {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.face.is-flipped .front {
+  pointer-events: none;
+}
+
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translateZ(-2px) rotateX(180deg);
+  backface-visibility: hidden;
+}
+
+.face[data-direction="left"] .back,
+.face[data-direction="right"] .back {
+  transform: translateZ(-2px) rotateY(180deg);
+}
+
+.face.is-flipped {
+  min-width: var(--back-width);
+  min-height: var(--back-height);
+}
+
+.face[data-direction="top"].is-flipped {
+  transform: rotateX(180deg);
+}
+
+.face[data-direction="right"].is-flipped {
+  transform: rotateY(180deg);
+}
+
+.face[data-direction="bottom"].is-flipped {
+  transform: rotateX(-180deg);
+}
+
+.face[data-direction="left"].is-flipped {
+  transform: rotateY(-180deg);
+} /*# sourceMappingURL=flip-card.css.map */
