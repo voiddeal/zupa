@@ -1,11 +1,9 @@
 import type { Metadata } from "next"
-import {} from "next/font/google"
+import { Barrio } from "next/font/google"
+import AppProviders from "@/providers/AppProviders"
 import "./globals.css"
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
+const barrio = Barrio({ subsets: ["latin"], weight: "400" })
 
 export const metadata: Metadata = {
   title: "Zupa",
@@ -19,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${barrio.className}`}>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   )
 }
