@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
+import viewReducer from "@/redux/slices/viewSlice"
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      viewReducer,
+    },
   })
 }
 
