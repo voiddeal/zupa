@@ -7,16 +7,16 @@ import { useMemo, useRef } from "react"
 import "./session.css"
 
 export default function Session() {
-  // const [OpenTileID, setOpenTileID] = useState<number | null>(null)
-  // const [isAnyTileOpen, setIsAnyTileOpen] = useState<boolean>(false)
   const OpenTileID = useRef<string | null>(null)
+  const isAnyTileOpen = useRef<boolean>(false)
   const board = useRef<HTMLDivElement>(null)
   const boardOverlay = useRef<HTMLDivElement>(null)
 
+  // Flip the given tile
   const Flip = (tile: HTMLDivElement) => {
-    const face = tile.getElementsByClassName("face")[0]
-    const isScored = face?.classList.contains("score")
-    if (OpenTileID.current && !isScored) {
+    const isScored = tile?.classList.contains("score")
+    // the wait mechanic
+    if (isAnyTileOpen.current && !isScored) {
       boardOverlay.current!.style.display = "block"
       boardOverlay.current!.style.cursor = "wait"
       setTimeout(() => {
@@ -24,26 +24,28 @@ export default function Session() {
         boardOverlay.current!.style.cursor = "default"
       }, 1000)
     }
-    face?.classList.add("is-flipped")
+
+    tile?.classList.add("is-flipped")
   }
 
-  const unFlip = (tile?: HTMLDivElement) => {
-    const face = tile?.getElementsByClassName("face")[0]
-    if (!face?.classList.contains("score")) {
-      setTimeout(() => {
-        board.current?.querySelectorAll(".face:not(.score)").forEach((tile) => {
-          tile.classList.remove("is-flipped")
-        })
-      }, 1000)
-    }
+  // Unflip all tiles except the scored tiles
+  const unFlip = () => {
+    setTimeout(() => {
+      board.current?.querySelectorAll(".face:not(.score)").forEach((tile) => {
+        tile.classList.remove("is-flipped")
+      })
+    }, 1000)
   }
 
-  const oneTwo = (tile: HTMLDivElement, value: string | null, id: string) => {
-    const face = tile.querySelector(".face")
-    if (!face?.classList.contains("score")) OpenTileID.current = value
-    else OpenTileID.current = null
+  // Keep tracking of tile conditions
+  const mark = (value: string | null) => {
+    OpenTileID.current = value
+    OpenTileID.current
+      ? (isAnyTileOpen.current = true)
+      : (isAnyTileOpen.current = false)
   }
 
+  // Adding "score" Class to the tile
   const score = (id: string) => {
     board.current?.querySelectorAll(`[id='${id}']`).forEach((tile) => {
       tile.querySelector(".face")?.classList.add("score")
@@ -74,28 +76,28 @@ export default function Session() {
             size="100%"
             className="tile size-full select-none cursor-pointer rounded-lg overflow-hidden"
             style={{ "--delay": `${(index + 1) / 10}s`, order }}
-            onClick={(event) => {
-              const tile = event.currentTarget
-              // if there is a flipped and unscored tile
-              if (OpenTileID.current) {
+            frontFaceOnClick={(event) => {
+              const tile = event.currentTarget.parentElement! as HTMLDivElement
+              // if there is a flipped and unscored tile open
+              if (isAnyTileOpen.current) {
                 // if it's a score
                 if (OpenTileID.current === id) {
                   score(id)
                   Flip(tile)
                   unFlip()
-                  oneTwo(tile, null, id)
+                  mark(null)
 
                   // if the guess is wrong
                 } else {
                   Flip(tile)
-                  unFlip(tile)
-                  oneTwo(tile, null, id)
+                  unFlip()
+                  mark(null)
                 }
 
                 // if there is no flipped tile yet (other than the possible scores)
               } else {
                 Flip(tile)
-                oneTwo(tile, id, id)
+                mark(id)
               }
             }}
           />

@@ -19,6 +19,7 @@ interface Props {
   style?: { [key: string]: string | number }
   className?: string
   onClick?: (event: React.MouseEvent<HTMLDivElement>) => void
+  frontFaceOnClick?: (event: React.MouseEvent<HTMLDivElement>) => void
   allowFlip?: boolean
   allowBackFlip?: boolean
   isInitiallyFlipped?: boolean
@@ -40,6 +41,7 @@ export default function FlipCard({
   style,
   className,
   onClick,
+  frontFaceOnClick,
   allowFlip = true,
   allowBackFlip = true,
   isInitiallyFlipped = false,
@@ -73,6 +75,7 @@ export default function FlipCard({
         <div
           // className={`front ${isFlipped ? "off-view" : "in-view"}`}
           className="front"
+          onClick={frontFaceOnClick}
           // onClick={() => {
           //   allowFlip && setIsFlipped(true)
           // }}
