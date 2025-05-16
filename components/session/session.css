@@ -4,6 +4,10 @@
   animation-delay: var(--delay);
 }
 
+.score {
+  cursor: not-allowed;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

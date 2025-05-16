@@ -5,7 +5,7 @@ import Main from "@/components/Main"
 import Session from "@/components/session/Session"
 
 export default function Home() {
-  const view = useAppSelector((state) => state.viewReducer)
+  const view = useAppSelector((state) => state.view)
 
   switch (view) {
     case "main":
