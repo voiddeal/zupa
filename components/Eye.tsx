@@ -46,7 +46,7 @@ const Eye: React.FC = () => {
 
       // Define movement limits
       const eyeMaxDistance = 24 // Max movement inside eye
-      const irisMaxDistance = 16 // Max movement inside iris
+      const irisMaxDistance = 4 // Max movement inside iris
       const pupilMaxDistance = 8 // Max movement inside pupil area
 
       const eyeDistance = Math.min(
@@ -73,11 +73,11 @@ const Eye: React.FC = () => {
   }, [])
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center z-20">
       {/* Eye container */}
       <div
         ref={eyeRef}
-        className="relative w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center"
+        className="relative w-14 h-14 bg-gray-300 rounded-full flex items-center justify-center"
       >
         {/* Blue ring (iris) */}
         <div
