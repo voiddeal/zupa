@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${barrio.className}`}>
+      <body className={`${barrio.className} overflow-x-hidden`}>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>
