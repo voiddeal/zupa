@@ -17,4 +17,4 @@ const viewSlice = createSlice({
 
 export default viewSlice.reducer
 export const viewActions = viewSlice.actions
-export const selectView = (state: RootState) => state.viewReducer
+export const selectView = (state: RootState) => state.view

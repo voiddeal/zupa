@@ -1,10 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit"
-import viewReducer from "@/redux/slices/viewSlice"
+import view from "@/redux/slices/viewSlice"
+import sessionStats from "@/redux/slices/sessionStatsSlice"
+import app from "@/redux/slices/appSlice"
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      viewReducer,
+      view,
+      sessionStats,
+      app,
     },
   })
 }
