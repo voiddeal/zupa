@@ -1,24 +1,20 @@
-import { RefObject } from "react"
-
 interface UnFlipProps {
-  wait?: boolean
+  board: React.RefObject<HTMLDivElement | null>
+  shouldWait?: boolean
   all?: boolean
-  board: RefObject<HTMLDivElement | null>
+  delay?: number
 }
 
 export default function unFlipTiles({
   board,
-  wait = true,
+  shouldWait = true,
   all = false,
+  delay = 1000,
 }: UnFlipProps) {
-  const removeScores = () => {
-    board.current?.querySelectorAll(".face").forEach((tile) => {
-      tile.classList.remove("score")
-    })
-  }
+  console.log(delay)
 
   const unFlip = () => {
-    board.current
+    board?.current
       ?.querySelectorAll(`.face${all ? "" : ":not(.score)"}`)
       .forEach((tile) => {
         tile.classList.remove("is-flipped")
@@ -30,9 +26,9 @@ export default function unFlipTiles({
       })
   }
 
-  wait
+  shouldWait
     ? setTimeout(() => {
         unFlip()
-      }, 1000)
+      }, delay)
     : unFlip()
 }
