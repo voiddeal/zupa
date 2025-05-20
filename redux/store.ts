@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit"
-import view from "@/redux/slices/viewSlice"
 import sessionStats from "@/redux/slices/sessionStatsSlice"
 import app from "@/redux/slices/appSlice"
+import records from "@/redux/slices/recordsSlice"
+import settings from "@/redux/slices/settingsSlice"
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      view,
       sessionStats,
       app,
+      records,
+      settings,
     },
   })
 }
