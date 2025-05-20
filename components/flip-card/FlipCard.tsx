@@ -1,6 +1,5 @@
 "use client"
 
-import { useRef, useState, createContext } from "react"
 import "./styles/flip-card.css"
 
 interface Props {
@@ -40,27 +39,16 @@ export default function FlipCard({
   duration,
   style,
   className,
-  onClick,
   frontFaceOnClick,
-  allowFlip = true,
-  allowBackFlip = true,
-  isInitiallyFlipped = false,
 }: Props) {
-  // const [isFlipped, setIsFlipped] = useState<boolean>(isInitiallyFlipped)
-  const face = useRef<HTMLDivElement>(null)
-
   return (
-    // <FlipContext.Provider value={{ isFlipped }}>
     <div
       className={`container ${className}`}
       style={style as React.CSSProperties}
       id={id}
-      onClickCapture={onClick}
     >
       <div
-        // className={`face ${isFlipped ? "is-flipped" : ""}`}
         className="face"
-        ref={face}
         data-direction={direction || "left"}
         style={
           {
@@ -72,29 +60,11 @@ export default function FlipCard({
           } as React.CSSProperties
         }
       >
-        <div
-          // className={`front ${isFlipped ? "off-view" : "in-view"}`}
-          className="front"
-          onClick={frontFaceOnClick}
-          // onClick={() => {
-          //   allowFlip && setIsFlipped(true)
-          // }}
-        >
+        <div className="front" onClick={frontFaceOnClick}>
           {front}
         </div>
-        <div
-          // className={`back ${isFlipped ? "in-view" : "off-view"}`}
-          className="back"
-          // onClick={() => {
-          //   allowFlip && allowBackFlip && setIsFlipped(false)
-          // }}
-        >
-          {back}
-        </div>
+        <div className="back">{back}</div>
       </div>
     </div>
-    // </FlipContext.Provider>
   )
 }
-
-export const FlipContext = createContext({ isFlipped: false })
