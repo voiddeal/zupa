@@ -29,7 +29,11 @@ export default function SessionResult() {
 
   const playSound = () => {
     if (!hasPlayed.current) {
-      spentTime === sessionTime ? aww.current.play() : yay.current.play()
+      if (spentTime === sessionTime) {
+        aww.current.play()
+      } else {
+        yay.current.play()
+      }
       hasPlayed.current = true
     }
   }
@@ -176,7 +180,7 @@ export default function SessionResult() {
         date: dateFormatter(new Date()),
       })
     )
-  }, [])
+  })
 
   return (
     <>

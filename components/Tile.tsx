@@ -113,7 +113,8 @@ export default function Tile({
     dispatch(sessionStatsActions.updateStrike())
   }
   const checkForFinish = () => {
-    const tiles = board.current?.getElementsByClassName("face")!
+    const tiles = board.current?.getElementsByClassName("face")
+    if (!tiles) return
     const areAllTilesFlipped = Array.from(tiles).every((tile) => {
       return tile.classList.contains("is-flipped")
     })

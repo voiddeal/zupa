@@ -40,7 +40,7 @@ export default function Session() {
           />
         )
       }),
-    [resetCount]
+    [resetCount, boardTileCount, tileMode, tileUnFlipDelay]
   )
 
   return (

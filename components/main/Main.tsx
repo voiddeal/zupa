@@ -15,7 +15,7 @@ import "./main.css"
 
 export default function Main() {
   const dispatch = useDispatch()
-  const { recordsDisplay, settingsDisplay, view } = useAppSelector(
+  const { recordsDisplay, settingsDisplay } = useAppSelector(
     (state) => state.app
   )
   const HEADER_TILE_CLASSNAMES =

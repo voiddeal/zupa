@@ -33,14 +33,14 @@ export default function CountdownTimer() {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [isTimerPaused, timeLeft])
+  }, [isTimerPaused, timeLeft, dispatch])
 
   // when the time is up
   useEffect(() => {
     if (!isTimeUp) return
     dispatch(appActions.setIsTimerPaused(true))
     dispatch(appActions.setSessionResultDisplay(true))
-  }, [isTimeUp])
+  }, [isTimeUp, dispatch])
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
@@ -51,7 +51,7 @@ export default function CountdownTimer() {
   useEffect(() => {
     if (resetCount === 0) return
     setTimeLeft(sessionTime - 1)
-  }, [resetCount])
+  }, [resetCount, sessionTime])
 
   return (
     <div className="h-full max-md:w-full flex md:flex-col items-center gap-y-3 max-md:justify-between">

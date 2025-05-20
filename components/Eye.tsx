@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 
 // throttle function to limit event firing
-const throttle = (callback: Function, limit: number) => {
+const throttle = (callback: (event: MouseEvent) => void, limit: number) => {
   let lastCall = 0
   return (event: MouseEvent) => {
     const now = Date.now()
