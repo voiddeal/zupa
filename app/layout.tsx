@@ -7,7 +7,7 @@ const barrio = Barrio({ subsets: ["latin"], weight: "400" })
 
 export const metadata: Metadata = {
   title: "Zupa",
-  description: "Tile Match Puzzle",
+  description: "Tile Match Puzzle Game",
 }
 
 export default function RootLayout({
