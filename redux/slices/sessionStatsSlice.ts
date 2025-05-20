@@ -2,27 +2,44 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "../store"
 
 interface SessionStats {
+  activeTileID: string | null
   score: number
   attempts: number
   correct: number
   strike: number
   strikeWatcher: 0 | 1 | 2
   mistake: number
+  spentTime: number
+  resetCount: number
 }
 
 const initialState: SessionStats = {
+  activeTileID: null,
   score: 0,
   attempts: 0,
   correct: 0,
   strikeWatcher: 0,
   strike: 0,
   mistake: 0,
+  spentTime: 0,
+  resetCount: 0,
 }
 
 const sessionStatsSlice = createSlice({
   name: "sessionStats",
   initialState,
   reducers: {
+    setActiveTileID: (
+      state,
+      action: PayloadAction<SessionStats["activeTileID"]>
+    ) => {
+      state.activeTileID = action.payload
+    },
+
+    clearActiveTileID: (state) => {
+      state.activeTileID = null
+    },
+
     setScore: (state, action: PayloadAction<SessionStats["score"]>) => {
       state.score = action.payload
     },
@@ -50,9 +67,14 @@ const sessionStatsSlice = createSlice({
       state.mistake += 1
     },
 
-    reset: () => {
-      return initialState
+    addSpentTime: (state) => {
+      state.spentTime += 1
     },
+
+    reset: (state) => ({
+      ...initialState,
+      resetCount: state.resetCount + 1,
+    }),
   },
 })
 
