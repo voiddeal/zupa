@@ -85,7 +85,7 @@ const Eye: React.FC = () => {
         {/* pupil*/}
         <div
           ref={pupilRef}
-          className="w-6 h-6 bg-black/80 rounded-full absolute group-hover:w-2 group-hover:h-4 transition-all"
+          className="w-6 h-6 bg-black/80 rounded-full absolute group-hover:w-2 group-hover:h-4 group-hover:bg-yellow-500 transition-all"
         ></div>
       </div>
     </div>
