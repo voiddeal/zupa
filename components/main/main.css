@@ -1,0 +1,31 @@
+.header-block {
+  animation: fall 1s var(--delay) ease-out forwards;
+  transform: translateY(-40dvh);
+}
+
+.main-buttons > button:nth-child(1) {
+  transform: translateX(-100dvw);
+  animation: come 1s 700ms ease-out forwards;
+}
+
+.main-buttons > button:nth-child(2) {
+  transform: translateX(-100dvw);
+  animation: come 1s 900ms ease-out forwards;
+}
+
+.main-buttons > button:nth-child(3) {
+  transform: translateX(-100dvw);
+  animation: come 1s 1100ms ease-out forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes come {
+  to {
+    transform: translateX(0);
+  }
+}
