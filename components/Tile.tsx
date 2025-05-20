@@ -1,9 +1,11 @@
 import Image from "next/image"
 import FlipCard from "./flip-card/FlipCard"
-import { RefObject, useRef } from "react"
-import { useAppDispatch } from "@/redux/hooks"
+import { RefObject } from "react"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { sessionStatsActions } from "@/redux/slices/sessionStatsSlice"
-import unFlip from "@/utils/unFlipTiles"
+import { appActions } from "@/redux/slices/appSlice"
+import unFlipTiles from "@/utils/unFlipTiles"
+import type { Settings } from "@/types/models"
 
 interface TileProps {
   index: number
@@ -11,8 +13,8 @@ interface TileProps {
   order: number
   board: RefObject<HTMLDivElement | null>
   boardOverlay: RefObject<HTMLDivElement | null>
-  OpenTileID: RefObject<string | null>
-  isAnyTileOpen: RefObject<boolean>
+  unFlipDelay: number
+  tileMode: Settings["tileMode"]
 }
 
 export default function Tile({
@@ -21,11 +23,11 @@ export default function Tile({
   order,
   board,
   boardOverlay,
-  OpenTileID,
-  isAnyTileOpen,
+  unFlipDelay,
+  tileMode,
 }: TileProps) {
   const dispatch = useAppDispatch()
-  const inSessionFinished = useRef<boolean>(false)
+  const { activeTileID } = useAppSelector((state) => state.sessionStats)
 
   const FrontFaceClickHandler = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -33,9 +35,9 @@ export default function Tile({
   ) => {
     const tile = event.currentTarget.parentElement! as HTMLDivElement
     // if there is a flipped and unscored tile open
-    if (isAnyTileOpen.current) {
+    if (activeTileID) {
       // if it's a score
-      if (OpenTileID.current === id) {
+      if (activeTileID === id) {
         score(id)
         Flip(tile)
         mark(null)
@@ -48,7 +50,7 @@ export default function Tile({
         // if the guess is wrong
       } else {
         Flip(tile)
-        unFlip({ board })
+        unFlipTiles({ board: board, delay: unFlipDelay })
         mark(null)
         increaseAttempts()
         increaseMistake()
@@ -67,13 +69,13 @@ export default function Tile({
   const Flip = (tile: HTMLDivElement) => {
     const isScored = tile?.classList.contains("score")
     // the wait mechanic
-    if (isAnyTileOpen.current && !isScored) {
+    if (activeTileID && !isScored) {
       boardOverlay.current!.style.display = "block"
       boardOverlay.current!.style.cursor = "wait"
       setTimeout(() => {
         boardOverlay.current!.style.display = "none"
         boardOverlay.current!.style.cursor = "default"
-      }, 1000)
+      }, unFlipDelay)
     }
 
     tile?.classList.add("is-flipped")
@@ -81,10 +83,7 @@ export default function Tile({
 
   // Keep tracking of tile conditions
   const mark = (value: string | null) => {
-    OpenTileID.current = value
-    OpenTileID.current
-      ? (isAnyTileOpen.current = true)
-      : (isAnyTileOpen.current = false)
+    dispatch(sessionStatsActions.setActiveTileID(value))
   }
 
   // Adding "score" Class to the tile
@@ -118,28 +117,30 @@ export default function Tile({
     const areAllTilesFlipped = Array.from(tiles).every((tile) => {
       return tile.classList.contains("is-flipped")
     })
+    if (areAllTilesFlipped) {
+      dispatch(appActions.setIsTimerPaused(true))
+      dispatch(appActions.setSessionResultDisplay(true))
+    }
   }
 
   return (
     <FlipCard
+      isInitiallyFlipped={true}
       key={index}
-      // front={<Image src={"/hidden-tile.png"} alt="front face" fill sizes="100px" />}
-      // front={
-      //   <Image
-      //     src={"/tile-front.jpg"}
-      //     alt="front face"
-      //     fill
-      //     sizes="100px"
-      //   />
-      // }
       front={
-        <div className="size-full flex justify-center items-center">{id}</div>
+        <Image src={"/hidden-tile.png"} alt="front face" fill sizes="100px" />
       }
+      // front={
+      //   <Image src={"/tile-front.jpg"} alt="front face" fill sizes="100px" />
+      // }
+      // front={
+      //   <div className="size-full flex justify-center items-center">{id}</div>
+      // }
       back={
         <div className="relative size-full">
           <Image src={"/tile-back.jpg"} alt="front face" fill sizes="100px" />
           <Image
-            src={`/animals/${Math.floor(index / 2) + 1}.png`}
+            src={`/${tileMode}/${Math.floor(index / 2) + 1}.png`}
             alt="back face"
             fill
             sizes="100px"
