@@ -191,7 +191,7 @@ export default function SessionResult() {
           <div className="session-result">
             <div className="session-result-blocks">{blocks()}</div>
             <div className="session-result-result">
-              <table className="w-full sm:text-2xl">
+              <table className="w-full sm:text-3xl">
                 <thead className="max-sm:hidden">
                   <DelayedRender delay={600}>
                     <tr>
@@ -207,7 +207,7 @@ export default function SessionResult() {
 
               <div className="session-result-score-border" />
 
-              <div className="py-8 max-sm:text-2xl text-5xl">
+              <div className="py-8 max-sm:text-2xl text-6xl">
                 <TypeAnimation wait={5000} value="Final Score:" />
                 <DelayedRender delay={6000}>
                   <CountUp
