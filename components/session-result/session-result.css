@@ -2,6 +2,7 @@
   width: 75%;
   height: 80%;
   position: relative;
+  overflow: hidden;
 }
 
 .session-result-blocks {
@@ -48,5 +49,12 @@
 @keyframes score-border {
   to {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .session-result {
+    width: 100%;
+    height: 60% !important;
   }
 }

@@ -187,14 +187,14 @@ export default function SessionResult() {
           <div className="session-result">
             <div className="session-result-blocks">{blocks()}</div>
             <div className="session-result-result">
-              <table className="w-full text-2xl">
-                <thead>
+              <table className="w-full sm:text-2xl">
+                <thead className="max-sm:hidden">
                   <DelayedRender delay={600}>
                     <tr>
-                      <th className="p-2 text-left">Stat</th>
-                      <th className="p-2 text-center">Count</th>
-                      <th className="p-2 text-center">Multiplier</th>
-                      <th className="p-2 text-center">Score</th>
+                      <th className="sm:p-2 text-left">Stat</th>
+                      <th className="sm:p-2 text-center">Count</th>
+                      <th className="sm:p-2 text-center">Multiplier</th>
+                      <th className="sm:p-2 text-center">Score</th>
                     </tr>
                   </DelayedRender>
                 </thead>
@@ -203,7 +203,7 @@ export default function SessionResult() {
 
               <div className="session-result-score-border" />
 
-              <div className="py-8 text-5xl">
+              <div className="py-8 max-sm:text-2xl text-5xl">
                 <TypeAnimation wait={5000} value="Final Score:" />
                 <DelayedRender delay={6000}>
                   <CountUp
