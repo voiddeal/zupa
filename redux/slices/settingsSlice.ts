@@ -9,7 +9,7 @@ const initialState: Settings = settings
   ? JSON.parse(settings)
   : {
       boardTileCount: 16,
-      sessionTime: 60,
+      sessionTime: 90,
       tileUnFlipDelay: 1500,
       tileMode: "animals",
       shouldCalculateMistakes: false,
