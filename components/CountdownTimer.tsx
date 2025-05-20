@@ -61,9 +61,9 @@ export default function CountdownTimer() {
         height="100"
         style={{ border: "none" }}
       />
-      <strong className="text-5xl block text-center text-white">
+      <span className="text-5xl block text-center text-white font-bold">
         :: {formatTime(timeLeft)} ::
-      </strong>
+      </span>
 
       <Image
         src={"/pause-button.png"}
