@@ -74,7 +74,7 @@ export default function CountdownTimer() {
         onClick={() => dispatch(appActions.setIsTimerPaused(!isTimerPaused))}
       />
 
-      {!sessionResultDisplay && isTimerPaused && false && (
+      {!sessionResultDisplay && isTimerPaused && (
         <Portal>
           <div className="fixed inset-0 m-auto w-dvw h-dvh flex justify-center items-center bg-black/20 backdrop-blur-md">
             <Image
