@@ -131,12 +131,6 @@ export default function Tile({
       front={
         <Image src={"/hidden-tile.png"} alt="front face" fill sizes="100px" />
       }
-      // front={
-      //   <Image src={"/tile-front.jpg"} alt="front face" fill sizes="100px" />
-      // }
-      // front={
-      //   <div className="size-full flex justify-center items-center">{id}</div>
-      // }
       back={
         <div className="relative size-full">
           <Image src={"/tile-back.jpg"} alt="front face" fill sizes="100px" />
