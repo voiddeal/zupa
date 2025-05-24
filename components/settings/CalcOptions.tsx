@@ -56,7 +56,7 @@ export default function CalcOptions() {
         className="flex items-center justify-between gap-x-5 h-fit"
         title="sound effect reactions at the end of the game"
       >
-        <label htmlFor="attempt-calc" className="text-3xl underline">
+        <label htmlFor="sounds" className="text-3xl underline">
           Enabled Sounds (?)
         </label>
         <input
