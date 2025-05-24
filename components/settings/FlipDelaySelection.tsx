@@ -16,12 +16,12 @@ export default function FlipDelaySelection() {
       value: 1000,
     },
     {
-      name: "1.5 sec",
-      value: 1500,
+      name: "1.3 sec",
+      value: 1300,
     },
     {
-      name: "2 sec",
-      value: 2000,
+      name: "1.5 sec",
+      value: 1500,
     },
   ]
 
